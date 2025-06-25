@@ -28,7 +28,7 @@ from .decorators import (
 
 __all__ = [
     "BunnyStream",
-    "BunnyStreamExtension", 
+    "BunnyStreamExtension",
     "BunnyStreamConfigError",
     "get_bunnystream",
     "event_handler",
