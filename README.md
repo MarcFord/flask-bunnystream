@@ -47,7 +47,7 @@ pip install flask-bunnystream
 # Or install from source
 git clone https://github.com/MarcFord/flask-bunnystream.git
 cd flask-bunnystream
-pip install -e src/
+pip install -e .
 ```
 
 ### Basic Usage
@@ -182,7 +182,7 @@ python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install in development mode
-pip install -e src/
+pip install -e .
 
 # Install development dependencies
 pip install pytest pytest-mock pytest-cov
@@ -257,7 +257,7 @@ python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install in development mode
-pip install -e src/
+pip install -e .
 pip install -r requirements-dev.txt
 
 # Start RabbitMQ for testing

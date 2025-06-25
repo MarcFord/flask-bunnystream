@@ -47,7 +47,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -e src/
+        pip install -e .
         pip install pytest pytest-mock pytest-cov pytest-xdist
         pip install flask bunnystream
 
@@ -90,7 +90,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -e src/
+        pip install -e .
         pip install black bandit safety
         pip install flask bunnystream
 
@@ -147,7 +147,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -e src/
+        pip install -e .
         pip install flask bunnystream flask-sqlalchemy requests
 
     - name: Wait for RabbitMQ to be ready
@@ -182,7 +182,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -e src/
+        pip install -e .
         pip install flask bunnystream
 
     - name: Check README links

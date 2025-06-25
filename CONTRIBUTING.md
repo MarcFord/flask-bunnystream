@@ -88,7 +88,7 @@ If you have questions about usage, please:
 
 3. **Install in development mode:**
    ```bash
-   pip install -e src/
+   pip install -e .
    pip install -r requirements-dev.txt
    ```
 

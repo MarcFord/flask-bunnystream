@@ -49,7 +49,7 @@ pip install flask bunnystream
 
 # Install flask-bunnystream from source
 cd /path/to/flask-bunnystream
-pip install -e src/
+pip install -e .
 
 # Start RabbitMQ (using Docker)
 docker run -d --name rabbitmq \
