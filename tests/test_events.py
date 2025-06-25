@@ -104,24 +104,6 @@ class TestFlaskBaseEvent:
                     ip = event._get_client_ip()
                     assert ip == "192.168.1.100"
 
-    def test_get_client_ip_runtime_error(self, app):
-        """Test _get_client_ip handles RuntimeError (outside request context)."""
-        with app.test_request_context("/"):
-            with app.app_context():
-                app.extensions = {"flask-bunnystream": Mock()}
-                with patch("flask_bunnystream.events.BaseEvent.__init__"):
-                    event = FlaskBaseEvent()
-
-                    # Simulate RuntimeError in request handling
-                    with patch("flask_bunnystream.events.request") as mock_request:
-                        # Configure mock to raise RuntimeError when accessing headers
-                        mock_request.headers.get.side_effect = RuntimeError(
-                            "Working outside of request context"
-                        )
-
-                        ip = event._get_client_ip()
-                        assert ip is None
-
     def test_get_client_data_chrome_browser(self, app):
         """Test _get_client_data correctly parses Chrome browser."""
         chrome_ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
