@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Any, Dict
 
 from flask import Flask
-from bunnystream import BunnyStream
+from bunnystream import Warren, BunnyStreamConfig
 from bunnystream.events import BaseReceivedEvent
 
 from app import create_app, db, ReceivedEvent
@@ -47,18 +47,25 @@ class EventConsumer:
 
         with self.app.app_context():
             try:
-                # Initialize BunnyStream
-                self.bunnystream = BunnyStream(
-                    url=self.app.config["BUNNYSTREAM_URL"],
-                    exchange=self.app.config["BUNNYSTREAM_EXCHANGE"],
-                    queue=self.app.config["BUNNYSTREAM_QUEUE"],
+                # Create BunnyStream config for consumer
+                config = BunnyStreamConfig(
+                    mode="consumer",
+                    exchange_name=self.app.config["BUNNYSTREAM_EXCHANGE"],
+                    rabbit_host=self.app.config.get("BUNNYSTREAM_HOST", "localhost"),
+                    rabbit_port=self.app.config.get("BUNNYSTREAM_PORT", 5672),
+                    rabbit_user=self.app.config.get("BUNNYSTREAM_USER", "admin"),
+                    rabbit_pass=self.app.config.get("BUNNYSTREAM_PASSWORD", "password"),
+                    rabbit_vhost=self.app.config.get("BUNNYSTREAM_VHOST", "/"),
                 )
+
+                # Initialize Warren for consuming events
+                self.bunnystream = Warren(config)
 
                 self.running = True
                 logger.info("Event consumer started, waiting for events...")
 
-                # Start listening for events
-                self.bunnystream.listen(self._handle_event)
+                # Start consuming events
+                self.bunnystream.start_consuming(self._handle_event)
 
             except Exception as e:
                 logger.error(f"Failed to start event consumer: {e}")
@@ -70,7 +77,8 @@ class EventConsumer:
 
         if self.bunnystream:
             try:
-                self.bunnystream.close()
+                self.bunnystream.stop_consuming()
+                self.bunnystream.disconnect()
                 logger.info("Event consumer stopped")
             except Exception as e:
                 logger.error(f"Error stopping event consumer: {e}")

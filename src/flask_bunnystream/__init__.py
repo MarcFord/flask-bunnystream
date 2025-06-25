@@ -15,6 +15,9 @@ except (PackageNotFoundError, Exception):  # pylint: disable=broad-exception-cau
     __version__ = "0.0.1-dev"
 
 from .extension import BunnyStream, BunnyStreamConfigError, get_bunnystream
+
+# Alias for backward compatibility and clearer naming
+BunnyStreamExtension = BunnyStream
 from .decorators import (
     event_handler,
     user_event,
@@ -25,6 +28,7 @@ from .decorators import (
 
 __all__ = [
     "BunnyStream",
+    "BunnyStreamExtension", 
     "BunnyStreamConfigError",
     "get_bunnystream",
     "event_handler",
