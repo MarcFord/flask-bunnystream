@@ -44,7 +44,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .
         pip install pytest pytest-mock pytest-cov
-        pip install flask bunnystream
 
     - name: Wait for RabbitMQ to be ready
       run: |
@@ -71,7 +70,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .
         pip install black
-        pip install flask bunnystream
 
     - name: Check code formatting
       run: |
